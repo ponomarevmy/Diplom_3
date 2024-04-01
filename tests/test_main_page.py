@@ -38,7 +38,7 @@ class TestMainPage:
     @allure.title("При добавлении ингредиента в заказ счётчик этого ингридиента увеличивается")
     def test_order_registration(self, driver):
         main_page = MainPage(driver)
-        main_page.drag_and_drop(MainPageLocators.BURGER_INGREDIENT, MainPageLocators.PLACE_FOR_INGREDIENTS)
+        main_page.drag_and_drop_for_order()
         quantity = main_page.number_of_ingredients().text
         assert quantity == '2', "Количество ингредиентов не совпадает"
 
@@ -46,6 +46,6 @@ class TestMainPage:
     def test_making_an_order(self, driver):
         main_page = MainPage(driver)
         main_page.authenticate()
-        main_page.drag_and_drop(MainPageLocators.BURGER_INGREDIENT, MainPageLocators.PLACE_FOR_INGREDIENTS)
+        main_page.drag_and_drop_for_order()
         main_page.make_an_order()
         assert main_page.confirmation_of_order(), "Заказ не сделан"

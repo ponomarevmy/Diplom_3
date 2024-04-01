@@ -23,13 +23,12 @@ class BasePage:
         return self.driver.current_url
 
     @allure.step("Нахождение элемента и клик")
-    def find_element_located_click(self, locator, time=20):
-        return WebDriverWait(self.driver, time).until(expected_conditions.presence_of_element_located(locator)).click()
+    def find_element_located_click(self, locator):
+        return self.find_element_located(locator).click()
 
     @allure.step("Нахождение элемента и передача значения")
     def find_element_send_key(self, locator, comment):
-        return (WebDriverWait(self.driver, 20).until(expected_conditions.presence_of_element_located(locator)).
-                send_keys(comment))
+        return self.find_element_located(locator).send_keys(comment)
 
     @allure.step("Переход на сайт")
     def go_to_site(self, url):
@@ -45,9 +44,9 @@ class BasePage:
         self.driver.execute_script("arguments[0].scrollIntoView();", goal)
 
     @allure.step("Переключение экрана")
-    def switch_window(self, locator, num, time=10):
+    def switch_window(self, locator, num):
         self.driver.switch_to.window(self.driver.window_handles[num])
-        return WebDriverWait(self.driver, time).until(expected_conditions.presence_of_element_located(locator))
+        return self.find_element_located(locator)
 
     @allure.step("Проверка ссылки на страницу")
     def url_to_be(self, url):

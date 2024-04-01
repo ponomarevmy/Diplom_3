@@ -1,7 +1,7 @@
 import allure
 from locators.main_page_locators import MainPageLocators
 from pages.personal_account_page import PersonalAccount
-
+from pages.base_page import BasePage
 
 class MainPage(PersonalAccount):
     def __init__(self, driver):
@@ -15,7 +15,6 @@ class MainPage(PersonalAccount):
     @allure.step("Ожидать пока кнопка 'Лента зказов' не будет кликабельна")
     def time_out_order_feed(self):
         self.check_element_is_clickable(MainPageLocators.ORDER_FEED)
-
 
     @allure.step("Переход на страницу конструктора")
     def go_to_constructor(self):
@@ -57,3 +56,7 @@ class MainPage(PersonalAccount):
     def confirmation_of_order(self):
         if self.find_element_located(MainPageLocators.CONFIRMATION_OF_MAKING_ORDER):
             return True
+
+    @allure.step("Добавление интгридиентов")
+    def drag_and_drop_for_order(self):
+        self.drag_and_drop(MainPageLocators.BURGER_INGREDIENT, MainPageLocators.PLACE_FOR_INGREDIENTS)

@@ -1,9 +1,12 @@
 import allure
 from locators.main_page_locators import MainPageLocators
-from pages.personal_account_page import PersonalAccount
+from locators.password_recovery_locators import ResetPasswordLocators
+from locators.personal_account_locators import PersonalAccountLocators
 from pages.base_page import BasePage
+from user_data import UserData
 
-class MainPage(PersonalAccount):
+
+class MainPage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
         self.driver = driver
@@ -60,3 +63,14 @@ class MainPage(PersonalAccount):
     @allure.step("Добавление интгридиентов")
     def drag_and_drop_for_order(self):
         self.drag_and_drop(MainPageLocators.BURGER_INGREDIENT, MainPageLocators.PLACE_FOR_INGREDIENTS)
+
+    def authenticate(self):
+        self.check_element_is_clickable(ResetPasswordLocators.ENTRANCE_FROM_MAIN)
+        self.find_element_located_click(ResetPasswordLocators.ENTRANCE_FROM_MAIN)
+        self.check_element_is_clickable(PersonalAccountLocators.BTN_ENTER)
+        self.find_element_located_click(ResetPasswordLocators.MAIL_INPUT)
+        self.find_element_send_key(ResetPasswordLocators.MAIL_INPUT, UserData.USER_MAIL)
+        self.find_element_located_click(PersonalAccountLocators.PASSWORD_INPUT)
+        self.find_element_send_key(PersonalAccountLocators.PASSWORD_INPUT, UserData.USER_PASSWORD)
+        self.find_element_located_click(PersonalAccountLocators.BTN_ENTER)
+        self.check_element_is_clickable(PersonalAccountLocators.PERSONAL_ACCOUNT_BUTTON)

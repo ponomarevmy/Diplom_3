@@ -1,12 +1,16 @@
 import allure
 from locators.order_feed_locators import OrderFeedLocators
+from pages.base_page import BasePage
 from pages.main_page import MainPage
+from pages.personal_account_page import PersonalAccount
 
 
-class OrderFeed(MainPage):
+class OrderFeed(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
         self.driver = driver
+        self.main_page = MainPage(driver)
+        self.personal_account = PersonalAccount(driver)
 
     @allure.step("Клик на заказ")
     def click_to_the_order(self):
@@ -53,3 +57,27 @@ class OrderFeed(MainPage):
         is_order_id = self.get_id_order_in_the_process()
         if order_id[1:] in is_order_id:
             return True
+
+    def authenticate(self):
+        self.main_page.authenticate()
+
+    def go_to_order_feed(self):
+        self.main_page.go_to_order_feed()
+
+    def make_an_order(self):
+        self.main_page.make_an_order()
+
+    def close_modal_clickable(self):
+        self.main_page.close_modal_clickable()
+
+    def close_modal(self):
+        self.main_page.close_modal()
+
+    def go_to_personal_account(self):
+        self.personal_account.go_to_personal_account()
+
+    def go_to_order_history(self):
+        self.personal_account.go_to_order_history()
+
+    def go_to_constructor(self):
+        self.main_page.go_to_constructor()

@@ -1,14 +1,12 @@
 import allure
 from locators.personal_account_locators import PersonalAccountLocators
 from pages.base_page import BasePage
-from pages.main_page import MainPage
 
 
 class PersonalAccount(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
         self.driver = driver
-        self.main_page = MainPage(driver)
 
     @allure.step("Переход на страницу личного кабинета")
     def go_to_personal_account(self):
@@ -22,6 +20,3 @@ class PersonalAccount(BasePage):
     @allure.step("Выход из личного кабинета")
     def exit_account(self):
         self.find_element_located_click(PersonalAccountLocators.EXIT_BUTTON)
-
-    def authenticate(self):
-        self.main_page.authenticate()
